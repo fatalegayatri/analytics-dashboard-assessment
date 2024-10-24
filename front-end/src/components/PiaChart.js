@@ -9,6 +9,8 @@ const PiaChart = ({ pieChartData2, COLORS }) => {
             <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
                     <Pie
+                        legendType='circle'
+
                         data={pieChartData2}
                         dataKey="value"
                         cx="50%"
@@ -21,6 +23,7 @@ const PiaChart = ({ pieChartData2, COLORS }) => {
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                     </Pie>
+
                     <Tooltip formatter={(value, name) => [`${value} Vehicles`, `${name}`]} />
                 </PieChart>
             </ResponsiveContainer>

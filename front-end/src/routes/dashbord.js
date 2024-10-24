@@ -4,7 +4,7 @@ import fetchEVData from '../api'; // Assuming fetchEVData is the function that f
 import { FaCar, FaCheckCircle, FaChartBar, FaDollarSign } from 'react-icons/fa'; // Importing icons
 import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai'; // Navigation icons
 import Pagination from '../components/UI/Pagination';
-import Chart from '../components/chart';
+import Chart from '../components/Chart';
 import PieChart from '../components/PiaChart';
 import Table from '../components/UI/Table';
 
@@ -22,7 +22,18 @@ const EVDashboard = () => {
     }, []);
 
     const filteredData = filteredCity ? evData.filter(item => item.city === filteredCity) : evData;
-    console.log(filteredData);
+    const yearCounts = filteredData.reduce((acc, item) => {
+        const year = item.modelYear; // Adjust based on your data structure
+        acc[year] = (acc[year] || 0) + 1;
+        return acc;
+    }, {});
+
+    const chartData = Object.entries(yearCounts).map(([year, count]) => ({
+        year: year,
+        count: count,
+    }));
+    console.log(chartData);
+
 
     const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
     const displayedData = filteredData.slice(currentPage * ITEMS_PER_PAGE, (currentPage + 1) * ITEMS_PER_PAGE);
@@ -123,7 +134,7 @@ const EVDashboard = () => {
             {/* Charts Section */}
             <section className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-gray-50">
                 <Chart
-                    displayedData={displayedData} />
+                    displayedData={chartData} />
 
                 <PieChart
                     pieChartData2={pieChartData2}

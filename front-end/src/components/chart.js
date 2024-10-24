@@ -10,16 +10,18 @@ const Chart = ({ displayedData }) => {
 
             <ResponsiveContainer width="100%" height={300}>
                 <BarChart
+
                     data={displayedData} // Your existing data
                     margin={{ top: 10, right: 30, left: 0, bottom: 20 }}
                 >
                     {/* <CartesianGrid strokeDasharray="3 3" /> */}
-                    <XAxis dataKey="model" tick={{ fill: '#555', fontSize: 12 }} />
+                    <XAxis dataKey="year" tick={{ fill: '#555', fontSize: 12 }} />
                     <YAxis tick={{ fill: '#555', fontSize: 12 }} />
                     <Tooltip />
-                    <Legend />
+                    <Legend type='circle' />
+
                     <Bar
-                        dataKey="electricRange"
+                        dataKey="count"
                         fill="#10B981"
                         radius={[16, 16, 0, 0]} // Rounded corners for bars
                         barSize={20}
